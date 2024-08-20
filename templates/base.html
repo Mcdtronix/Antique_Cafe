@@ -1,0 +1,256 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Manager Dashboard{% endblock %}</title>
+    <link rel="preconnect" href="{% static 'https://fonts.googleapis.com' %}">
+    <link rel="preconnect" href="{% static 'https://fonts.gstatic.com' %}" crossorigin>
+    <link href="{% static 'https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&family=Oswald:wght@600&display=swap' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}"> <!-- fontawesome -->
+    <link href="{% static 'https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tooplate-antique-cafe.css' %}">
+    <style>
+        /* Header Styles */
+        header {
+            background-color: #333;
+            color: #fff;
+        }
+    
+        #tm-nav {
+            background-color: #444;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    
+        #tm-nav ul {
+            padding: 0;
+            margin: 0;
+            list-style-type: none;
+        }
+    
+        #tm-nav ul li {
+            display: inline-block;
+        }
+    
+        #tm-nav a {
+            text-decoration: none;
+            color: #FFD700; /* Gold */
+            transition: color 0.3s ease;
+        }
+    
+        #tm-nav a:hover {
+            color: #FFF;
+        }
+    
+        /* Main Content Styles */
+        main {
+            padding: 20px;
+            background-color: #a4a0a0e0;
+        }
+    
+        /* Form Background and Fields */
+        .form-container {
+            background-color: #ffffffc3;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px 0;
+        }
+    
+        .form-container h2 {
+            margin-block-end: 20px;
+            color: #333;
+            font-size: 1.5rem;
+            border-block-end: 2px solid #FFD700; /* Gold */
+            padding-block-end: 10px;
+        }
+    
+        .form-container label {
+            display: block;
+            margin-block-end: 8px;
+            font-weight: 600;
+            color: #555;
+        }
+    
+        .form-container input,
+        .form-container select,
+        .form-container textarea {
+            inline-size: 100%;
+            padding: 10px;
+            border: 2px solid hsl(236, 35%, 46%); /* Changed to 2px solid border */
+            border-radius: 4px;
+            margin-block-end: 15px;
+            font-size: 1rem;
+        }
+    
+        .form-container input:focus,
+        .form-container select:focus,
+        .form-container textarea:focus {
+            border-color: #FFD700; /* Gold */
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+        }
+    
+        /* Customer Bookings Section */
+        .bookings-container {
+            background-color: #fefefe;
+            border: 2px solid #ddd; /* Changed to 2px solid border */
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+        .bookings-container h3 {
+            margin-block-end: 20px;
+            color: #333;
+            font-size: 1.25rem;
+            border-block-end: 2px solid #FFD700; /* Gold */
+            padding-block-end: 10px;
+        }
+    
+        .bookings-container table {
+            inline-size: 100%;
+            border-collapse: collapse;
+        }
+    
+        .bookings-container table th,
+        .bookings-container table td {
+            padding: 12px;
+            text-align: start;
+            border: 2px solid hsl(133, 80%, 45%); /* Added border to table cells */
+        }
+    
+        .bookings-container table th {
+            background-color: #15a73e;
+            color: #333;
+        }
+    
+        .bookings-container table tr:hover {
+            background-color: #df2b2b;
+        }
+    
+        /* Footer Styles */
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+        }
+    
+        footer a {
+            color: #FFD700; /* Gold */
+            text-decoration: none;
+        }
+    
+        footer a:hover {
+            text-decoration: underline;
+        }
+    
+        /* Responsive Design */
+        @media (max-inline-size: 768px) {
+            #tm-nav ul {
+                display: none;
+            }
+    
+            #tm-nav ul.hidden {
+                display: block;
+            }
+        }
+    
+        /* Scroll Effect */
+        #tm-nav.scroll {
+            background-color: #222;
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav id="tm-nav" class="fixed w-full">
+            <div class="tm-container mx-auto px-2 md:py-6 text-right">
+                <button class="md:hidden py-2 px-2" id="menu-toggle"><i class="fas fa-2x fa-bars tm-text-gold"></i></button>
+                <ul class="mb-3 md:mb-0 text-2xl font-normal flex justify-end flex-col md:flex-row">
+                    <li class="inline-block mb-4 mx-4"><a href="#dashboard" class="tm-text-gold py-1 md:py-3 px-4">Dashboard</a></li>
+                    <li class="inline-block mb-4 mx-4"><a href="#reports" class="tm-text-gold py-1 md:py-3 px-4">Reports</a></li>
+                    <li class="inline-block mb-4 mx-4"><a href="#settings" class="tm-text-gold py-1 md:py-3 px-4">Settings</a></li>
+                    <li class="inline-block mb-4 mx-4"><a href="#logout" class="tm-text-gold py-1 md:py-3 px-4">Logout</a></li>
+                </ul>
+            </div>            
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}
+        <!-- Default content can go here if needed -->
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="absolute bottom-0 left-0 w-full">
+        <div class="text-white container mx-auto tm-container p-8 text-lg flex flex-col md:flex-row justify-between">
+            <span>Copyright 2024 Manager Dashboard. All rights reserved.</span>
+            <span class="mt-5 md:mt-0">Design: <a href="{% static 'https://www.google.com' %}" target="_parent">M@cDtronix</a></span>
+        </div>                
+    </footer>
+
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'js/parallax.min.js' %}"></script>
+    <script src="{% static 'js/jquery.singlePageNav.min.js' %}"></script>
+    <script>
+        function checkAndShowHideMenu() {
+            if(window.innerWidth < 768) {
+                $('#tm-nav ul').addClass('hidden');                
+            } else {
+                $('#tm-nav ul').removeClass('hidden');
+            }
+        }
+
+        $(function(){
+            var tmNav = $('#tm-nav');
+            tmNav.singlePageNav();
+
+            checkAndShowHideMenu();
+            window.addEventListener('resize', checkAndShowHideMenu);
+
+            $('#menu-toggle').click(function(){
+                $('#tm-nav ul').toggleClass('hidden');
+            });
+
+            $('#tm-nav ul li').click(function(){
+                if(window.innerWidth < 768) {
+                    $('#tm-nav ul').addClass('hidden');
+                }                
+            });
+
+            $(document).scroll(function() {
+                var distanceFromTop = $(document).scrollTop();
+
+                if(distanceFromTop > 100) {
+                    tmNav.addClass('scroll');
+                } else {
+                    tmNav.removeClass('scroll');
+                }
+            });
+            
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
+

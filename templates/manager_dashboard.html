@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}Manager Dashboard{% endblock %}
+
+{% block content %}
+<h2>Manager Dashboard</h2>
+
+<h3>Add Menu Item</h3>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ menu_form.as_p }}
+    <button type="submit" name="add_menu_item">Add Menu Item</button>
+</form>
+
+<h3>Customer Bookings</h3>
+<table>
+    <tr>
+        <th>Customer Name</th>
+        <th>Email</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Message</th>
+        <th>Reply</th>
+    </tr>
+    {% for booking in bookings %}
+    <tr>
+        <td>{{ booking.customer_name }}</td>
+        <td>{{ booking.customer_email }}</td>
+        <td>{{ booking.booking_date }}</td>
+        <td>{{ booking.booking_time }}</td>
+        <td>{{ booking.additional_info }}</td>
+        <td>
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="booking_id" value="{{ booking.id }}">
+                <textarea name="reply_message" placeholder="Your reply"></textarea>
+                <button type="submit" name="reply_to_booking">Send Reply</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+

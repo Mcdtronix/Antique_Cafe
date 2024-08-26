@@ -121,21 +121,21 @@
         .bookings-container table td {
             padding: 12px;
             text-align: start;
-            border: 2px solid hsl(133, 80%, 45%); /* Added border to table cells */
+            border: 2px solid hsl(0, 0%, 24%); /* Added border to table cells */
         }
     
         .bookings-container table th {
-            background-color: #15a73e;
+            background-color: #575857;
             color: #333;
         }
     
         .bookings-container table tr:hover {
-            background-color: #df2b2b;
+            background-color: #333;
         }
     
         /* Footer Styles */
         footer {
-            background-color: #333;
+            background-color: #414141;
             color: #fff;
             text-align: center;
             padding: 10px;
@@ -190,7 +190,7 @@
         <!-- Default content can go here if needed -->
         {% endblock %}
     </main>
-
+    {% block footer %}
     <!-- Footer -->
     <footer class="absolute bottom-0 left-0 w-full">
         <div class="text-white container mx-auto tm-container p-8 text-lg flex flex-col md:flex-row justify-between">
@@ -198,6 +198,7 @@
             <span class="mt-5 md:mt-0">Design: <a href="{% static 'https://www.google.com' %}" target="_parent">M@cDtronix</a></span>
         </div>                
     </footer>
+    {% endblock %}
 
     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'js/parallax.min.js' %}"></script>

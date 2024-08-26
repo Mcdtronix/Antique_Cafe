@@ -1,7 +1,8 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from . models import Menu,About,Contact,Booking
 from django.core.mail import send_mail
 from .forms import BookingForm, MenuForm 
+from django.urls import reverse
 
 # Create your views here.
 from .forms import BookingForm
@@ -59,3 +60,28 @@ def manager_dashboard(request):
         'bookings': bookings,
     }
     return render(request, 'manager_dashboard.html', context)
+
+
+# View to update a menu item
+def update_menu(request, menu_id):
+    menu = get_object_or_404(Menu, id=menu_id)
+    
+    if request.method == "POST":
+        form = MenuForm(request.POST, request.FILES, instance=menu)
+        if form.is_valid():
+            form.save()
+            return redirect('manager_dashboard')  # Redirect to the manager dashboard after saving
+    else:
+        form = MenuForm(instance=menu)
+    
+    return render(request, 'update_menu.html', {'form': form})
+
+# View to delete a menu item
+def delete_menu(request, menu_id):
+    menu = get_object_or_404(Menu, id=menu_id)
+    
+    if request.method == "POST":
+        menu.delete()
+        return redirect('manager_dashboard')  # Redirect to the manager dashboard after deletion
+    
+    return render(request, 'delete_menu.html', {'menu': menu})

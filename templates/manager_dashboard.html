@@ -15,8 +15,6 @@
             </button>
         </form>
     </div>
-
-    <!-- Manage Menu Items Section -->
     <div class="menu-items-container mt-10">
         <h3>Manage Menu Items</h3>
         <table>
@@ -24,29 +22,30 @@
                 <tr>
                     <th>Menu Item</th>
                     <th>Description</th>
-                    <th>Price</th>
+                    <th>Small Price</th>
+                    <th>Large Price</th>
                     <th>Image</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                {% for item in menu_items %}
+                {% for item in menus %}
                 <tr>
                     <td>{{ item.name }}</td>
                     <td>{{ item.description }}</td>
-                    <td>{{ item.price }}</td>
+                    <td>{{ item.small_price }}</td>
+                    <td>{{ item.large_price }}</td>
                     <td><img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-16 h-16 object-cover"></td>
                     <td>
                         <!-- Update Menu Item -->
                         <form method="POST" enctype="multipart/form-data" class="inline">
                             {% csrf_token %}
                             <input type="hidden" name="menu_item_id" value="{{ item.id }}">
-                            {{ update_menu_form.as_p }}
                             <button type="submit" name="update_menu_item" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                                 Update
                             </button>
                         </form>
-
+    
                         <!-- Delete Menu Item -->
                         <form method="POST" class="inline">
                             {% csrf_token %}
@@ -61,7 +60,7 @@
             </tbody>
         </table>
     </div>
-
+    
     <!-- Customer Bookings Section -->
     <div class="bookings-container mt-10">
         <h3>Customer Bookings</h3>
@@ -100,6 +99,15 @@
         </table>
     </div>
 </div>
+
+<!-- JavaScript for Pop-Up Notifications -->
+<script>
+    {% if messages %}
+        {% for message in messages %}
+            alert("{{ message }}");
+        {% endfor %}
+    {% endif %}
+</script>
 {% endblock %}
 
 {% block footer %}

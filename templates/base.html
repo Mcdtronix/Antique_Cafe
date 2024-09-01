@@ -132,6 +132,24 @@
         .bookings-container table tr:hover {
             background-color: #333;
         }
+
+
+        /* Button Styles */
+        .btn-gold {
+            background-color: #FFD700; /* Gold */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .btn-gold:hover {
+            background-color: #fff;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+        }
     
         /* Footer Styles */
         footer {
@@ -171,6 +189,7 @@
 <body>
     <!-- Header -->
     <header>
+        {% block nav %}
         <nav id="tm-nav" class="fixed w-full">
             <div class="tm-container mx-auto px-2 md:py-6 text-right">
                 <button class="md:hidden py-2 px-2" id="menu-toggle"><i class="fas fa-2x fa-bars tm-text-gold"></i></button>
@@ -178,10 +197,11 @@
                     <li class="inline-block mb-4 mx-4"><a href="#dashboard" class="tm-text-gold py-1 md:py-3 px-4">Dashboard</a></li>
                     <li class="inline-block mb-4 mx-4"><a href="#reports" class="tm-text-gold py-1 md:py-3 px-4">Reports</a></li>
                     <li class="inline-block mb-4 mx-4"><a href="#settings" class="tm-text-gold py-1 md:py-3 px-4">Settings</a></li>
-                    <li class="inline-block mb-4 mx-4"><a href="#logout" class="tm-text-gold py-1 md:py-3 px-4">Logout</a></li>
+                    <li class="inline-block mb-4 mx-4"><a href="{% url 'logout' %}" class="tm-text-gold py-1 md:py-3 px-4">Logout</a></li>
                 </ul>
             </div>            
         </nav>
+        {% endblock %}
     </header>
 
     <!-- Main Content -->

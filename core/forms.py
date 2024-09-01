@@ -9,4 +9,5 @@ class BookingForm(forms.ModelForm):
 class MenuForm(forms.ModelForm):
     class Meta:
         model = Menu
-        fields = ['name', 'small_price', 'large_price', 'image']
+        fields = ['name','small_price', 'large_price', 'image']
+

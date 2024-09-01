@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Are you sure you want to delete "{{ menu.name }}"?</h2>
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit">Yes, delete</button>
+    <a href="{% url 'manager_dashboard' %}">No, go back</a>
+</form>
+{% endblock %}

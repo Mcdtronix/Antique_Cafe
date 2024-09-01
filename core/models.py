@@ -8,26 +8,24 @@ class Menu(models.Model):
     name = models.CharField(max_length=100)
     small_price = models.DecimalField(max_digits=10, decimal_places=2)
     large_price = models.DecimalField(max_digits=10, decimal_places=2)
-    image =models.ImageField(upload_to = 'image/menu/')
-    
+    image = models.ImageField(upload_to='image/menu/')
     
     def save(self, *args, **kwargs):
         # Resize image
         if self.image:
             img = Image.open(self.image)
-            if img.height > 800 or img.width > 800:
-                output_size = (800, 800)
-                img.thumbnail(output_size)
-                
-                # Save the resized image to a new BytesIO object
-                img_io = BytesIO()
-                img.save(img_io, format='JPEG', quality=85)
-
-                # Save the resized image back to the model
-                self.image = ContentFile(img_io.getvalue(), name=self.image.name)
-
+            # Convert the image to the desired dimensions using LANCZOS filter
+            output_size = (160, 120)
+            img = img.resize(output_size, Image.LANCZOS)
+            
+            # Save the resized image to a new BytesIO object
+            img_io = BytesIO()
+            img.save(img_io, format='JPEG')
+            
+            # Save the resized image back to the model
+            self.image = ContentFile(img_io.getvalue(), name=self.image.name)
+        
         super().save(*args, **kwargs)
-
     
     def __str__(self):
         return self.name

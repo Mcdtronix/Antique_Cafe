@@ -134,3 +134,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'kudakwashemacdonald16@gmail.com'  # Your email address
 EMAIL_HOST_PASSWORD = 'aqi16@khayz..'  # Your email password
+
+
+LOGIN_REDIRECT_URL = '/manager/dashboard/'
